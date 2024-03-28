@@ -6,36 +6,81 @@
 		<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 		<link href="assets/styles.css" rel="stylesheet">
 		<style>
-			/* Schrijf hier gewoon je CSS voor dit component */
 
-			/* Hint: Denk niet te ingewikkeld */
+			.image-preview-container {
+				background: var(--green);
+				background-position: center;
+				border: 0.3em solid rgb(45 45 45 / .5);
+				cursor: pointer;
+				display: block;
+				margin: 1em;
+				padding: 10em;
+				text-align: center;
+				width: 30em;
+				border-radius: 8px;
+            }
+
+			.fdnd-button {
+				margin: 1em;
+			}
+
+			 img {
+				display: none;
+				width: 100%;
+			}
+
+			 input {
+				display: none;
+			}
+
+			.image-preview-container label {
+				display: block;
+				margin-left: auto;
+				color: black;
+				font-weight: 800;
+				cursor: pointer;
+			}
+		
 		</style>
-		<script type="module">
-			/* Schrijf hier eventueel je client-side JavaScript */
-			
-			/* Hint: Met een paar regels kom je al een heel eind */
-
-			/* Hint: Via JS kun je Custom Properties in CSS aanpassen */
-		</script>
+		
 	</head>
 	<body>
 		<h1>File upload met preview</h1>
-
-		<!-- Voor het uploaden van een bestand heb je altijd een formulier nodig.
-			 Dus die krijg je alvast. Maak je over de server niet druk; het gaat om de UI. -->
-		<form method="post">
-
-			<!-- Hint: Denk niet te ingewikkeld -->
-
-			<button type="submit" class="fdnd-button">Uploaden</button>
-
+		
+		<form method="post" >
+		<div class="image-preview-container">
+			<div class="preview">
+				<img src=# alt="Preview uploaded image" id="imagePreview" />
+			</div>
+			<label for="file-upload">Selecteer je afbeelding</label>
+			<input type="file" id="file-upload" accept="image/*" onchange="previewImage(event);" />
+		</div>
+		<button type="submit" class="fdnd-button">Uploaden</button>
 		</form>
-
-		<details open>
+	
+		<script type="module">
+			let input = document.getElementById('file-upload');
+			let previewImage = () => {
+				let files = input.files;
+				if (files && files.length > 0) {
+					let fileReader = new FileReader();
+					let preview = document.getElementById('imagePreview'); 
+					fileReader.onload = function (event) {
+						preview.style.display = 'block';
+						preview.setAttribute('src', event.target.result);
+					}
+					fileReader.readAsDataURL(files[0]);
+				}
+			}
+			input.addEventListener("change", previewImage);
+		</script>
+		
+		0<details open>
 			<summary>Demo video</summary>
 			<video src="assets/file.mp4" width="1496" height="496" controls muted autoplay loop>
 				<a href="assets/file.mp4">assets/file.mp4</a>
 			</video>
-		</details>
+		</details>  
 	</body>
+
 </html>
