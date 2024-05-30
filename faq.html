@@ -9,62 +9,64 @@
     />
     <link href="assets/styles.css" rel="stylesheet" />
     <style>
-      details {
-		border: 2px solid black;
-		border-radius: 8px;
-		cursor: pointer;
-		margin: 2em;
-		padding: 1em;
-		width: max-content;
-	  }
+     details {
+      border: 2px solid black;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 2em;
+      padding: 1em;
+      width: max-content;
+      border: solid 3px rosybrown;
+    }
 
-      details[open] {
-        border: none;
-        width: 30em;
-      }
-
-      details[open]:nth-of-type(1) {
-        background-color: var(--purple);
-      }
-
-      details[open]:nth-of-type(2) {
-        background-color: var(--green);
-      }
-
-      details[open]:nth-of-type(3) {
-        background-color: var(--yellow);
-      }
-
-      details[open] summary {
-        width: max-content;
-      }
-
-	  details summary::marker {
-		  content: '+';
-      padding: 1em; ;
-	  }
-
-		.bar {
-    -webkit-transition: all 0.3s ease-in-out;
-    background-color: var(--menu-clr);
-    display: block;
-    height: 3px;
-    margin: 5px auto;
-    transition: all 0.3s ease-in-out;
-    width: 25px;
+@keyframes opening {
+  from {
+    opacity: 0;
   }
-
-.open {
-    color: black;
-    border: none;
-    border-radius: var(--border); 
-    cursor: pointer;
-    margin: 0em 1em 0em 1em;
-    padding: 0.5em;
-    position: fixed;
-    right: 1em;
-    z-index: 999;
+  to {
+    opacity: 1;
   }
+}
+
+details[open] {
+  border: none;
+  width: 30em;
+  background-color: rosybrown;
+  animation: opening 1.5s ease ;
+
+}
+
+details summary::marker {
+  content: "";
+}
+
+details summary::before {
+  content: "🡢";
+  display: inline-block;
+  margin-right: 10px;
+  transition: transform 0.8s ease;
+}
+
+details[open] summary::before {
+  transform: rotate(450deg) scale(1.2);
+}
+
+details[open] summary {
+  width: max-content;
+  transition: all 0.2s ease;
+  text-decoration: underline;
+}
+
+details p {
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+details[open] p {
+  opacity: 1;
+}
 
     </style>
   </head>
@@ -108,12 +110,5 @@
       </p>
     </details>
 
-    <!-- Hint: Dit stukje HTML geeft het misschien al weg :) -->
-    <!-- <details open>
-			<summary>Demo video</summary>
-			<video src="assets/faq.mp4" width="765" height="769" controls muted autoplay loop>
-				<a href="assets/faq.mp4">assets/faq.mp4</a>
-			</video>
-		</details> -->
-  </body>
+   
 </html>
